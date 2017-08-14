@@ -221,8 +221,17 @@ class AirCargoProblem(Problem):
         conditions by ignoring the preconditions required for an action to be
         executed.
         """
-        # TODO implement (see Russell-Norvig Ed-3 10.2.3  or Russell-Norvig Ed-2 11.2)
+        # implement Russell-Norvig Ed-2 11.2. According to the text, assuming
+        # subgoal independence, the resulting heuristic is simply the number of
+        # unsatisfied goals. As such, we adapt code from the goal_test method
         count = 0
+        # create knowledgebase and tell it the state
+        kb = PropKB()
+        kb.tell(decode_state(node.state, self.state_map).pos_sentence())
+        # for each clause in the goal, count it if it is not met
+        for clause in self.goal:
+            if clause not in kb.clauses:
+                count = count + 1
         return count
 
 
