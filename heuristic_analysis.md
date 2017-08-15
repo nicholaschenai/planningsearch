@@ -1,10 +1,12 @@
 ---
 title: "Analysis of search techniques in an air cargo planning problem"
 author: "Nicholas Chen"
-output: html_document
+output: pdf_document
 ---
 
 # Introduction
+
+In this report, we discuss the various methods of planning search applied to deterministic logistics planning problems for an Air Cargo transport system. We first ran uninformed (non-heuristic) planning searches, and compare them to A* planning searches with domain-independent heuristics, using the metrics of number of node expansions (a proxy for memory required), number of goal tests, time elapsed and optimality. 
 
 # Optimal plans 
 
@@ -49,18 +51,20 @@ Note, there may be more than 1 optimal solution for each of the problems.
 
 # Comparison of non-heuristic search result metrics
 
-(optimality, time elapsed, number of node expansions) for Problems 1,2, and 3. Include breadth-first, depth-first, and at least one other uninformed non-heuristic search in your comparison; Your third choice of non-heuristic search may be skipped for Problem 3 if it takes longer than 10 minutes to run, but a note in this case should be included.
+![Comparison of metrics for non-heuristic search](results/result1.png)
 
-![](results/result1.png)
+We see that depth first search typically gives the least number of node expansions (and thus requires the least amount of memory) and finds the solution in the shortest time compared to the other two algorithms, but fails to find the optimal solution.
+
+On the other hand, breadth first search and uniform cost search finds the optimal solution, but typically requires a larger amount of node expansions and takes a much longer time to arrive at a solution. While the time taken to find the solution for problem 1 and 2 is about the same for these two algorithms, in problem 3 we see that uniform cost search runs twice as fast.
+
+These results agree with theory: Depth first search is not guaranteed to find the best solution, but breadth first search and uniform cost search are, as mentioned in the video lectures. The main benefit of depth first search is the smaller memory requirement.
 
 # Comparison of heuristic search result metrics
 
-using A* with the "ignore preconditions" and "level-sum" heuristics for Problems 1, 2, and 3.
+![Comparison of metrics for A* search with different heuristics](results/result2.png)
 
-![](results/result2.png)
+A\* search found the optimal solution for both ignore_preconditions and levelsum heuristics. We see another tradeoff between the two heuristics; ignore_preconditions typically requires more node expansions and consumes more memory, but takes a shorter time to find the solution whereas levelsum consumes significantly less memory but requires a lot more time to find the solution. 
 
-# Discussion
+Using both time and optimality as a measure, the ignore_preconditions heuristic is the best one. Under this criteria, A\* search with ignore_preconditions heuristic is also better than non-heuristic seach planning methods for problems 2 and 3, and on par with the non-heuristic methods for problem 1. The effectiveness of A* with heuristics can only be seen when the problem gets harder.
 
-What was the best heuristic used in these problems? Was it better than non-heuristic search planning methods for all problems? Why or why not?
-
-`test`
+These results support the fact that A\* search is guaranteed to find the optimal path(s) if the heuristic is admissible (does not overestimate the cost), as mentioned in the video lectures. Furthermore, it is not surprising that A\* with levelsum takes a longer time to find the optimal solution: The levelsum heuristic takes a longer time to compute than the ignore_preconditions heuristic. Furthermore, we expect heuristic search to be better than non-heuristic search in general because the latter only sees nodes as 'goal' and 'non-goal' ones and will blindly expand nodes till it reaches the goal state. 
