@@ -8,9 +8,9 @@ output: html_document
 
 # Stanford Research Institute Problem Solver (STRIPS)
 
-STRIPS is the first major planning system which combines techniques from state-space search, theorem proving and control theory [1, 2].
+STRIPS is the first major planning system which combines techniques from state-space search, theorem proving and control theory [1, 2]. It represents states as a collection of first-order predicate formulas, and finds a sequence of operators which transform the initial state to the goal state. While the algorithm behind STRIPS is a milestone, the action representation of STRIPS was far more influential -- Most planning systems following it have used a variant of the STRIPS language. 
 
-# Graphplan
+# GRAPHPLAN
 
 ddd
 
